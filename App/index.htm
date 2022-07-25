@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+
+
+
+<script>
+
+function fetchData() {
+
+	fetch('http://localhost:8000/Kimondo/Server/endpoint.php', {
+		method: "GET"
+	}).then((response) => {
+		response.json().then((data) => {
+			showData(data);
+		})
+    })
+
+}
+
+function showData(data) {
+
+	let card = document.createElement("div");
+	for(let i=0; i<data.length; i++) {
+		let row = data[i];
+		console.log(row);
+	}
+}
+
+fetchData();
+
+</script>

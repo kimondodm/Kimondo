@@ -8,11 +8,11 @@ require "config.php";
 
 $conn = new mysqli(Config::SERVER_NAME, Config::USER_NAME, Config::PASSWORD, Config::DB_NAME);
 
-function create_seller($bname, $opening_h, $closing_h, $bphone) {
+function create_seller($bname, $opening_h, $closing_h, $bphone, $bimage) {
 
     global $conn;
-    $stmt = $conn->prepare("INSERT INTO seller(business_name, opening_hours, closing_hours, business_phone) VALUES(?,?,?,?)");
-    $stmt->bind_param("ssss", $bname, $opening_h, $closing_h, $bphone);
+    $stmt = $conn->prepare("INSERT INTO seller(business_name, opening_hours, closing_hours, business_phone, business_image) VALUES(?,?,?,?,?)");
+    $stmt->bind_param("sssss", $bname, $opening_h, $closing_h, $bphone, $bimage);
     $stmt->execute();
     $stmt->close();
 
@@ -40,7 +40,7 @@ function get_latest_id() {
 
 }
 
-//create_seller("wab","0","2","+245716");
+//create_seller("wab","2","4","+2457165543");
 
 //$al = get_sellers();
 //get_sellers();

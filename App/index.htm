@@ -1,6 +1,24 @@
 <!DOCTYPE html>
 
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+	<style>
+		span:after {
+			content:"\000A";
+			white-space: pre;
+		}
+		img {
+			width: 200px !important;
+		}
+	</style>
+</head>
 
+<body style="background-color: #7679A0;">
+	<nav class="p-2 mb-2" style="background-color: #565656; color: white; text-align: center;">
+        <h3>Madaraka Market</h3>
+    </nav>
+	<div id="root" style="display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%;"></div>
+</body>
 
 
 <script>
@@ -18,12 +36,53 @@ function fetchData() {
 }
 
 function showData(data) {
-
-	let card = document.createElement("div");
 	for(let i=0; i<data.length; i++) {
 		let row = data[i];
-		console.log(row);
+		createCard(row.business_name, row.opening_hours, row.closing_hours, row.business_phone, row.business_image);
 	}
+}
+
+function createCard(bName, openingH, closingH, bPhone, bImage) {
+
+	let root = document.querySelector("#root");
+	let card = document.createElement("div");
+	let cardBody = document.createElement("div");
+	//let br = document.createElement("br");
+	let imgBox = document.createElement("img");
+	let bname = document.createElement("span");
+	let openingh = document.createElement("span");
+	let closingh = document.createElement("span");
+	let bphone = document.createElement("a");
+
+	card.classList.add("card");
+	card.classList.add("w-50");
+	card.classList.add("m-1");
+	card.classList.add("p-1");
+	imgBox.style.display = "block";
+	imgBox.style.margin = "0 auto";
+	imgBox.classList.add("text-center");
+	cardBody.classList.add("card-body");
+
+	bname.style.fontWeight = "bold";
+	bphone.classList.add("btn");
+	bphone.classList.add("btn-primary");
+
+	imgBox.src = "../Resources/" + bImage;
+	bname.innerText = bName;
+	openingh.innerText = "Opens: " + openingH + "h";
+	closingh.innerText = "Closes: " + closingH + "h";
+	bphone.innerText = "Call";
+	bphone.href = "tel:" + bPhone;
+
+	cardBody.appendChild(bname);
+	cardBody.appendChild(openingh);
+	cardBody.appendChild(closingh);
+	cardBody.appendChild(bphone);
+	card.appendChild(imgBox);
+	card.appendChild(cardBody);
+	root.appendChild(card);
+	//root.appendChild(br);
+
 }
 
 fetchData();
